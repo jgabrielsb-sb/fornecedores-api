@@ -87,7 +87,6 @@ class Error422Response(ErrorResponse):
     message: str
     path: Optional[str]
     timestamp: Optional[str]
-    details: Optional[str]
 
     model_config = {
         "json_schema_extra": {

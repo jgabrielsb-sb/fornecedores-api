@@ -30,10 +30,9 @@ def create_app() -> FastAPI:
         return JSONResponse(
             status_code=422,
             content=dto_responses.Error422Response(
-                message="Invalid request body or parameters",
+                message="Invalid request body or parameters: " + str(exc.errors()),
                 path=request.url.path,
                 timestamp=datetime.now().isoformat(),
-                details=json.dumps(exc.errors()),
             ).model_dump(mode="json"),
         )
 
