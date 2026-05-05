@@ -4,7 +4,7 @@ import re
 from pydantic import AfterValidator, WithJsonSchema
 
 
-def validate_cnpj(value: Any) -> str:
+def validate_cnpj(value: str) -> str:
     digits = re.sub(r"\D", "", str(value))
     if len(digits) != 14:
         raise ValueError(f"CNPJ length must be 14 digits, but got {len(digits)}")
