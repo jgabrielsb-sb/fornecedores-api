@@ -13,7 +13,7 @@ def create(
     session: Session,
 ) -> FornecedoresSchema:
     db_fornecedor = FornecedoresSchema(
-        cnpj=fornecedor.cnpj.value,
+        cnpj=fornecedor.cnpj,
         created_at=now,
         updated_at=now,
     )

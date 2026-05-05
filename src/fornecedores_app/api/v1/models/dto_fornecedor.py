@@ -2,13 +2,13 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from fornecedores_app.domain.value_objects import CNPJ
+from fornecedores_app.api.fields.cnpj_field import CNPJField
 
 
 class FornecedorCreate(BaseModel):
     """Payload to create a fornecedor."""
 
-    cnpj: CNPJ = Field(..., description="CNPJ (digits or formatted)")
+    cnpj: CNPJField = Field(..., description="CNPJ (digits or formatted)")
 
 
 class FornecedorResponse(BaseModel):
@@ -17,6 +17,6 @@ class FornecedorResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int = Field(..., description="The fornecedor id")
-    cnpj: CNPJ = Field(..., description="CNPJ")
+    cnpj: CNPJField = Field(..., description="CNPJ")
     created_at: datetime = Field(..., description="Creation timestamp (UTC)")
     updated_at: datetime = Field(..., description="Last update timestamp (UTC)")
