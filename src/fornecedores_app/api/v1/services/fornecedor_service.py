@@ -1,3 +1,4 @@
+from datetime import UTC, datetime
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -19,7 +20,8 @@ def create_fornecedor(
         )
 
     try:
-        db_fornecedor = fornecedor_repo.create(fornecedor_create, session)
+        now = datetime.now(UTC)
+        db_fornecedor = fornecedor_repo.create(fornecedor_create, now=now, session=session)
         fornecedor_response = dto_fornecedor.FornecedorResponse.model_validate(db_fornecedor)
         session.commit()
         return fornecedor_response
