@@ -1,3 +1,3 @@
-from .schemas import Base
+from .schemas import Base, FornecedoresSchema
 
-__all__ = ["Base"]
+__all__ = ["Base", "FornecedoresSchema"]

@@ -14,6 +14,8 @@ from src.fornecedores_app.core.config import settings
 
 config.set_main_option("sqlalchemy.url", settings.DB_URL_WITH_LIBRARY.replace("%", "%%"))
 
+import src.fornecedores_app.db.schemas.schemas as _orm_schemas  # noqa: F401 - register models on Base.metadata
+
 from src.fornecedores_app.db.schemas.schemas import Base
 
 target_metadata = Base.metadata

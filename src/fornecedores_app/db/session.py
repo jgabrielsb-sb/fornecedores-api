@@ -3,13 +3,14 @@ from typing import (
     Generator,
 )
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import (
     Session,
     sessionmaker,
 )
 
 from fornecedores_app.core.config import settings
+from fornecedores_app.db.schemas import schemas as _schemas  # noqa: F401 - register ORM tables
 from fornecedores_app.db.schemas.schemas import Base
 
 engine = create_engine(
@@ -23,6 +24,8 @@ session_maker = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def create_db() -> None:
+    with engine.begin() as conn:
+        conn.execute(text('CREATE SCHEMA IF NOT EXISTS "Fornecedor"'))
     Base.metadata.create_all(engine)
 
 
