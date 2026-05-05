@@ -37,5 +37,6 @@ class FornecedorOnProteusSchema(Base):
         default=0,
         server_default=text("0"),
     )
+    protheus_last_synced_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False)
     updated_at = Column(DateTime(timezone=True), nullable=False)
