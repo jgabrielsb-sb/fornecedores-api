@@ -13,7 +13,7 @@ from fornecedores_app.api.v1.services.exceptions import (
     InvalidFileException,
     NotFoundException,
 )
-from fornecedores_app.core.config import settings
+from fornecedores_app.config import settings
 
 
 def create_app() -> FastAPI:

@@ -10,7 +10,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from src.fornecedores_app.core.config import settings
+from src.fornecedores_app.config import settings
 
 config.set_main_option("sqlalchemy.url", settings.DB_URL_WITH_LIBRARY.replace("%", "%%"))
 

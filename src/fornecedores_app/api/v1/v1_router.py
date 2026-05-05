@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from fornecedores_app.core.config import settings
+from fornecedores_app.config import settings
 
 from .controllers.fornecedor_controller import router as fornecedor_router
 from .controllers.health_controller import router as health_router

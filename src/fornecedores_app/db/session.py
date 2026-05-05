@@ -9,7 +9,7 @@ from sqlalchemy.orm import (
     sessionmaker,
 )
 
-from fornecedores_app.core.config import settings
+from fornecedores_app.config import settings
 from fornecedores_app.db.schemas import schemas as _schemas  # noqa: F401 - register ORM tables
 from fornecedores_app.db.schemas.schemas import Base
 
