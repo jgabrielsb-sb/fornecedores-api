@@ -13,7 +13,7 @@ def create(
     session: Session,
 ) -> FornecedoresSchema:
     db_fornecedor = FornecedoresSchema(
-        **fornecedor.model_dump(),
+        cnpj=fornecedor.cnpj.value,
         created_at=now,
         updated_at=now,
     )

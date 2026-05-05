@@ -5,12 +5,13 @@ import pytest
 from fornecedores_app.api.v1.models import FornecedorCreate
 from fornecedores_app.api.v1.repos import fornecedor_repo
 from fornecedores_app.db.schemas import FornecedoresSchema
+from fornecedores_app.domain.value_objects import CNPJ
 
 
 @pytest.fixture
 def fornecedor_create() -> FornecedorCreate:
     return FornecedorCreate(
-        cnpj="12345678912345",
+        cnpj=CNPJ.create("12345678912345"),
     )
 
 
@@ -28,43 +29,43 @@ class TestCreateFornecedor:
         )
 
         assert isinstance(fornecedor_returned, FornecedoresSchema)
-        assert fornecedor_returned.cnpj == fornecedor_create.cnpj
+        assert fornecedor_returned.cnpj == fornecedor_create.cnpj.value
         assert fornecedor_returned.updated_at == now
         assert fornecedor_returned.created_at == now
         assert fornecedor_returned is not None
 
 
 class TestGetFornecedorByCNPJ:
-    def test_should_return_the_fornecedor_given_existent_cnpj(self, db_session):
+    def test_should_return_the_fornecedor_given_existent_cnpj(
+        self, db_session, fornecedor_create: FornecedorCreate
+    ):
         now = datetime.now(UTC)
-        dto = FornecedorCreate(cnpj="11111111111111")
-        created = fornecedor_repo.create(dto, now=now, session=db_session)
+        created = fornecedor_repo.create(fornecedor_create, now=now, session=db_session)
 
-        found = fornecedor_repo.get_fornecedor_by_cnpj(dto.cnpj, db_session)
+        found = fornecedor_repo.get_fornecedor_by_cnpj(fornecedor_create.cnpj.value, db_session)
 
         assert found is not None
         assert found.id == created.id
-        assert found.cnpj == dto.cnpj
+        assert found.cnpj == fornecedor_create.cnpj.value
         assert found.created_at == now
         assert found.updated_at == now
 
-    def test_should_return_none_given_non_existent_cnpj(self, db_session):
-        assert fornecedor_repo.get_fornecedor_by_cnpj("99999999999999", db_session) is None
+    def test_should_return_none_given_non_existent_cnpj(self, db_session, fornecedor_create: FornecedorCreate):
+        assert fornecedor_repo.get_fornecedor_by_cnpj(fornecedor_create.cnpj.value, db_session) is None
 
 
 class TestGetFornecedorByID:
-    def test_should_return_the_fornecedor_given_existent_id(self, db_session):
+    def test_should_return_the_fornecedor_given_existent_id(self, db_session, fornecedor_create: FornecedorCreate):
         now = datetime.now(UTC)
-        dto = FornecedorCreate(cnpj="22222222222222")
-        created = fornecedor_repo.create(dto, now=now, session=db_session)
+        created = fornecedor_repo.create(fornecedor_create, now=now, session=db_session)
 
-        found = fornecedor_repo.get_by_id(created.id, db_session)
+        found = fornecedor_repo.get_by_id(created.id, session=db_session)
 
         assert found is not None
         assert found.id == created.id
-        assert found.cnpj == dto.cnpj
+        assert found.cnpj == fornecedor_create.cnpj.value
         assert found.created_at == now
         assert found.updated_at == now
 
-    def test_should_return_none_given_non_existent_id(self, db_session):
-        assert fornecedor_repo.get_by_id(424242, db_session) is None
+    def test_should_return_none_given_non_existent_id(self, db_session, fornecedor_create: FornecedorCreate):
+        assert fornecedor_repo.get_by_id(424242, session=db_session) is None
