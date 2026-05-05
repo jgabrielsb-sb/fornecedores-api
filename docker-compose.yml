@@ -1,0 +1,14 @@
+services:
+  api:
+    image: ${DOCKER_PROJECT_NAME}
+    container_name: ${DOCKER_PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: ${DOCKER_VOLUME_DOCKER}/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${DOCKER_PORT}:8000"
+    volumes:
+      - ./data:/code/data
