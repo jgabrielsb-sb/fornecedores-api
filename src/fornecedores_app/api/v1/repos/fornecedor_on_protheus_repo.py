@@ -69,3 +69,30 @@ def sync_protheus_synced_version(
     session.add(db_fornecedor_on_protheus)
     session.flush()
     return db_fornecedor_on_protheus
+
+def set_to_update_to_false(
+    *,
+    id: int,
+    session: Session,
+) -> FornecedorOnProteusSchema:
+    db_fornecedor_on_protheus = get_fornecedor_on_protheus_by_id(id, session)
+    if db_fornecedor_on_protheus is None:
+        raise ValueError("Fornecedor on protheus not found")
+    db_fornecedor_on_protheus.to_update = False
+    session.add(db_fornecedor_on_protheus)
+    session.flush()
+    return db_fornecedor_on_protheus
+
+
+def set_to_update_to_true(
+    *,
+    id: int,
+    session: Session,
+) -> FornecedorOnProteusSchema:
+    db_fornecedor_on_protheus = get_fornecedor_on_protheus_by_id(id, session)
+    if db_fornecedor_on_protheus is None:
+        raise ValueError("Fornecedor on protheus not found")
+    db_fornecedor_on_protheus.to_update = True
+    session.add(db_fornecedor_on_protheus)
+    session.flush()
+    return db_fornecedor_on_protheus

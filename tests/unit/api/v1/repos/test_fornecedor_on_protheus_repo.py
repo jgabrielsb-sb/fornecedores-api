@@ -161,4 +161,45 @@ class TestSyncProtheusSyncedVersion:
         assert row_after_sync.updated_at == now_update
 
 
+class TestSetToUpdateToTrue:
+    def test_should_set_to_update_to_true_when_set_to_update_to_true_is_called(
+        self,
+        fornecedor_id: int,
+        db_session
+    ):
+        row = fornecedor_on_protheus_repo.get_fornecedor_on_protheus_by_fornecedor_id(
+            fornecedor_id,
+            db_session
+        )
+        assert row.to_update is False
         
+        row_after_set_to_update_to_true = fornecedor_on_protheus_repo.set_to_update_to_true(
+            id=row.id,
+            session=db_session
+        )
+        assert row_after_set_to_update_to_true.to_update is True
+
+class TestSetToUpdateToFalse:
+    def test_should_set_to_update_to_false_when_set_to_update_to_false_is_called(
+        self,
+        fornecedor_id: int,
+        db_session
+    ):
+        row = fornecedor_on_protheus_repo.get_fornecedor_on_protheus_by_fornecedor_id(
+            fornecedor_id,
+            db_session
+        )
+         
+        fornecedor_on_protheus_repo.set_to_update_to_true(
+            id=row.id,
+            session=db_session
+        )
+        assert row.to_update is True
+
+        row_after_set_to_update_to_false = fornecedor_on_protheus_repo.set_to_update_to_false(
+            id=row.id,
+            session=db_session
+        )
+        
+        assert row_after_set_to_update_to_false.to_update is False
+       
