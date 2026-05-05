@@ -75,6 +75,10 @@ def create_app() -> FastAPI:
             "name": "v1/health",
             "description": "Health and readiness endpoints (API v1)",
         },
+        {
+            "name": "v1/fornecedores",
+            "description": "Fornecedor management endpoints (API v1)",
+        },
     ]
 
     app.add_middleware(
