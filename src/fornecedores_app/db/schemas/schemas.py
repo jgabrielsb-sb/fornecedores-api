@@ -23,7 +23,8 @@ class FornecedorOnProteusSchema(Base):
         nullable=False,
         index=True,
     )
-    version = Column(Integer, nullable=False, default=1, server_default=text("1"))
+    cep = Column(String, nullable=True)
+    version = Column(Integer, nullable=False, default=0, server_default=text("0"))
     to_update = Column(
         Boolean,
         nullable=False,

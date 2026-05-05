@@ -1,0 +1,83 @@
+from datetime import UTC, datetime
+
+import pytest
+
+from fornecedores_app.api.v1.models import FornecedorCreate, FornecedorOnProtheusVersion0Create
+from fornecedores_app.api.v1.repos import fornecedor_on_protheus_repo, fornecedor_repo
+from fornecedores_app.db.schemas import FornecedorOnProteusSchema
+
+
+@pytest.fixture
+def fornecedor_id(db_session) -> int:
+    now = datetime.now(UTC)
+    parent = fornecedor_repo.create(
+        FornecedorCreate(cnpj="11111111111111"),
+        now=now,
+        session=db_session,
+    )
+    db_session.flush()
+    return parent.id
+
+
+class TestCreateFornecedorOnProtheus:
+    def test_should_create_fornecedor_on_protheus_with_valid_data(
+        self,
+        db_session,
+        fornecedor_id: int,
+    ):
+        now = datetime.now(UTC)
+        dto = FornecedorOnProtheusVersion0Create(
+            id_fornecedor=fornecedor_id,
+        )
+        row = fornecedor_on_protheus_repo.create_version_0(
+            dto,
+            now=now,
+            session=db_session,
+        )
+
+        assert isinstance(row, FornecedorOnProteusSchema)
+        assert row.id_fornecedor == fornecedor_id
+        assert row.created_at == now
+        assert row.updated_at == now
+        assert row.cep is None
+        assert row.version == 0
+        assert row.to_update is False
+        assert row.protheus_synced_version == 0
+        assert row.id is not None
+
+
+class TestGetFornecedorOnProtheusById:
+    def test_should_return_the_row_given_existent_id(
+        self,
+        db_session,
+        fornecedor_id: int,
+    ):
+        now = datetime.now(UTC)
+        dto = FornecedorOnProtheusVersion0Create(
+            id_fornecedor=fornecedor_id,
+        )
+        created = fornecedor_on_protheus_repo.create_version_0(
+            dto,
+            now=now,
+            session=db_session,
+        )
+
+        found = fornecedor_on_protheus_repo.get_fornecedor_on_protheus_by_id(
+            created.id,
+            db_session,
+        )
+
+        assert found is not None
+        assert found.id == created.id
+        assert found.id_fornecedor == fornecedor_id
+        assert found.created_at == now
+        assert found.updated_at == now
+
+    def test_should_return_none_given_non_existent_id(self, db_session):
+        assert (
+            fornecedor_on_protheus_repo.get_fornecedor_on_protheus_by_id(
+                424242,
+                db_session,
+            )
+            is None
+        )
