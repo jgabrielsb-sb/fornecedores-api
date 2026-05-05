@@ -33,6 +33,19 @@ def create_fornecedor(
             object="fornecedor",
         ) from None
 
+def get_fornecedor_by_cnpj(
+    cnpj: str,
+    session: Session,
+) -> dto_fornecedor.FornecedorResponse:
+    db_fornecedor = fornecedor_repo.get_fornecedor_by_cnpj(cnpj, session)
+    if not db_fornecedor:
+        raise NotFoundException(
+            resource="cnpj",
+            identifier=cnpj,
+            object="fornecedor",
+        )
+    return dto_fornecedor.FornecedorResponse.model_validate(db_fornecedor)
+
 
 def get_fornecedor_by_id(
     fornecedor_id: int,
