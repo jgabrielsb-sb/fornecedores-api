@@ -62,10 +62,10 @@ def sync_protheus_synced_version(
     session: Session,
 ) -> FornecedorOnProteusSchema:
     db_fornecedor_on_protheus = get_fornecedor_on_protheus_by_id(id, session)
-    if db_fornecedor_on_protheus is None:
-        raise ValueError("Fornecedor on protheus not found")
-    db_fornecedor_on_protheus.protheus_synced_version = db_fornecedor_on_protheus.version
-    db_fornecedor_on_protheus.protheus_last_synced_at = now
+    if not db_fornecedor_on_protheus.protheus_synced_version == db_fornecedor_on_protheus.version:
+        db_fornecedor_on_protheus.protheus_synced_version = db_fornecedor_on_protheus.version
+        db_fornecedor_on_protheus.protheus_last_synced_at = now
+    
     session.add(db_fornecedor_on_protheus)
     session.flush()
     return db_fornecedor_on_protheus

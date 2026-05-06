@@ -160,6 +160,18 @@ class TestSyncProtheusSyncedVersion:
         # assert that updated_at remains the same
         assert row_after_sync.updated_at == now_update
 
+        ## calling sync again
+        row_after_sync_again = fornecedor_on_protheus_repo.sync_protheus_synced_version(
+            id=row.id,
+            now=now_sync,
+            session=db_session
+        )
+
+        # assert that protheus_synced_version remains the same (idempotency)
+        assert row_after_sync_again.protheus_synced_version == 1
+        assert row_after_sync_again.protheus_last_synced_at == now_sync
+        assert row_after_sync_again.updated_at == now_update
+
 
 class TestSetToUpdateToTrue:
     def test_should_set_to_update_to_true_when_set_to_update_to_true_is_called(
