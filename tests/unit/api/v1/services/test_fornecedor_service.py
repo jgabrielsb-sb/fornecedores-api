@@ -1,6 +1,8 @@
 import pytest
 
 from fornecedores_app.api.v1.models import FornecedorCreate
+
+pytestmark = pytest.mark.unit
 from fornecedores_app.api.v1.services import fornecedor_service
 from fornecedores_app.api.v1.services.exceptions import ConflictException, NotFoundException
 

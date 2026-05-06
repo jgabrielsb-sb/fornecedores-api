@@ -15,6 +15,8 @@ from fornecedores_app.api.v1.services.exceptions import (
     NotFoundException,
 )
 
+pytestmark = pytest.mark.unit
+
 _cnpj_counter = count(1)
 
 

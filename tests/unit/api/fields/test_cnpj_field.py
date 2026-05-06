@@ -3,6 +3,8 @@ import pytest
 
 from fornecedores_app.api.fields.cnpj_field import CNPJField, validate_cnpj
 
+pytestmark = pytest.mark.unit
+
 
 class _CNPJModel(BaseModel):
     cnpj: CNPJField

@@ -3,6 +3,8 @@ from pydantic import BaseModel, ValidationError
 
 from fornecedores_app.api.fields.cep_field import CEPField, validate_cep
 
+pytestmark = pytest.mark.unit
+
 
 class _CEPModel(BaseModel):
     cep: CEPField

@@ -3,6 +3,8 @@ from datetime import UTC, datetime
 import pytest
 
 from fornecedores_app.api.v1.models import FornecedorCreate, FornecedorOnProtheusVersion0Create
+
+pytestmark = pytest.mark.unit
 from fornecedores_app.api.v1.models.dto_fornecedor_on_protheus import FornecedorOnProtheusUpdate
 from fornecedores_app.api.v1.repos import fornecedor_on_protheus_repo, fornecedor_repo
 from fornecedores_app.db.schemas import FornecedorOnProteusSchema
