@@ -61,6 +61,26 @@ class Error400Response(ErrorResponse):
     }
 
 
+class Error403Response(ErrorResponse):
+    status_code: int = 403
+    error: str = "Forbidden"
+    message: str
+    path: Optional[str]
+    timestamp: Optional[str]
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "status_code": 403,
+                "error": "Forbidden",
+                "message": "Operation not allowed in the current resource state",
+                "path": "/api/v1/",
+                "timestamp": "2025-10-28T16:02:00Z",
+            }
+        }
+    }
+
+
 class Error404Response(ErrorResponse):
     status_code: int = 404
     error: str = "Not Found"

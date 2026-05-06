@@ -39,3 +39,8 @@ class ConflictException(ServiceException):
         self.resource = resource
         self.identifier = identifier
         self.object = object
+
+class ForbiddenException(ServiceException):
+    def __init__(self, message: str):
+        super().__init__(message)
+        self.message = message

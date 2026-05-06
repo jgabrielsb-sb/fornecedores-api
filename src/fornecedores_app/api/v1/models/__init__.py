@@ -6,7 +6,8 @@ from .dto_fornecedor import (
 
 from .dto_fornecedor_on_protheus import (
     FornecedorOnProtheusVersion0Create,
-    FornecedorOnProtheusUpdate
+    FornecedorOnProtheusUpdate,
+    FornecedorOnProtheusResponse
 )
 
 __all__: list[str] = []

@@ -10,6 +10,7 @@ from fornecedores_app.api.v1 import v1_router
 from fornecedores_app.api.v1.models import dto_responses
 from fornecedores_app.api.v1.services.exceptions import (
     ConflictException,
+    ForbiddenException,
     InvalidFileException,
     NotFoundException,
 )
@@ -58,6 +59,17 @@ def create_app() -> FastAPI:
             ).model_dump(mode="json"),
         )
 
+    @app.exception_handler(ForbiddenException)
+    async def forbidden_exception_handler(request: Request, exc: ForbiddenException):
+        return JSONResponse(
+            status_code=403,
+            content=dto_responses.Error403Response(
+                message=str(exc),
+                path=str(request.url),
+                timestamp=datetime.now().isoformat(),
+            ).model_dump(mode="json"),
+        )
+
     @app.exception_handler(InvalidFileException)
     async def invalid_file_exception_handler(request: Request, exc: InvalidFileException):
         return JSONResponse(
@@ -77,6 +89,10 @@ def create_app() -> FastAPI:
         {
             "name": "v1/fornecedores",
             "description": "Fornecedor management endpoints (API v1)",
+        },
+        {
+            "name": "v1/fornecedores-on-protheus",
+            "description": "Fornecedor on Protheus management endpoints (API v1)",
         },
     ]
 
