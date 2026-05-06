@@ -30,3 +30,14 @@ addopts = [
     "--verbose",
     "--html=report.html",
 ]
+markers = [
+    "unit: fast tests that do not use external resources",
+    "integration: tests that integrate with database or infrastructure",
+    "e2e: tests that exercise business flows through the API",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.2",
+]

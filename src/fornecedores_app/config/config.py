@@ -3,14 +3,28 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
+import os
+
+def get_env_file() -> str:
+    app_env = os.getenv("APP_ENV", "dev")
+
+    if app_env == "test":
+        print("Using test environment")
+        return ".env.test"
+    
+    print("Using dev environment")
+    return ".env"
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=get_env_file(),
         env_file_encoding="utf-8",
         extra="allow",
     )
 
+    APP_ENV: str = "dev"
+    
     DB_DRIVER: str = "postgresql"
     DB_LIBRARY: str = "psycopg"
 
