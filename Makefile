@@ -7,10 +7,13 @@ clean:
 
 
 test-unit:
-	uv run pytest -m unit
+	APP_ENV=test uv run pytest -m unit
 
 test-e2e:
 	APP_ENV=test uv run pytest -m e2e
+
+test-all:
+	APP_ENV=test uv run pytest
 
 ###### DATABASE MANAGEMENT COMMANDS ######
 db-insert-initial-data:
