@@ -12,7 +12,7 @@ class TestCreateMunicipio:
         dto = MunicipioCreate(municipio_name="Belo Horizonte", codigo_ibge="3106200")
         result = municipio_service.create_municipio(dto, db_session)
 
-        assert result.municipio_name == "Belo Horizonte"
+        assert result.municipio_name == "BELO HORIZONTE"
         assert result.codigo_ibge == "3106200"
         assert result.id is not None
         assert result.created_at is not None
@@ -50,7 +50,7 @@ class TestGetMunicipioByName:
         found = municipio_service.get_municipio_by_name("Rio de Janeiro", db_session)
 
         assert found.id == created.id
-        assert found.municipio_name == "Rio de Janeiro"
+        assert found.municipio_name == "RIO DE JANEIRO"
 
     def test_should_raise_not_found_exception_if_municipio_not_found(self, db_session):
         with pytest.raises(NotFoundException):

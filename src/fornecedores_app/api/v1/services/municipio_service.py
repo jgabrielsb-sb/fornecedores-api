@@ -3,6 +3,7 @@ from datetime import UTC, datetime
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from fornecedores_app.api.fields.str_normalized_field import normalize_str
 from fornecedores_app.api.v1.models.dto_municipio import MunicipioCreate, MunicipioResponse
 from fornecedores_app.api.v1.repos import municipio_repo
 from fornecedores_app.api.v1.services.exceptions import ConflictException, NotFoundException
@@ -53,7 +54,7 @@ def get_municipio_by_name(
     municipio_name: str,
     session: Session,
 ) -> MunicipioResponse:
-    db_municipio = municipio_repo.get_by_name(municipio_name, session)
+    db_municipio = municipio_repo.get_by_name(normalize_str(municipio_name), session)
     if not db_municipio:
         raise NotFoundException(
             resource="municipio_name",
