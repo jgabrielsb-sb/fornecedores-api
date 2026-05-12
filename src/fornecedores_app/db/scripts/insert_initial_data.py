@@ -1,2 +1,4 @@
+from fornecedores_app.db.scripts.insert_municipios import insert_municipios
+
 if __name__ == "__main__":
-    print("No seed data defined for fornecedores-api.")
+    insert_municipios()
