@@ -4,6 +4,16 @@ from sqlalchemy.orm import declarative_base
 Base = declarative_base()
 
 
+class MunicipiosSchema(Base):
+    __tablename__ = "municipios"
+
+    id = Column(Integer, primary_key=True, index=True)
+    municipio_name = Column(String, nullable=False)
+    codigo_ibge = Column(String(16), nullable=False, unique=True)
+    created_at = Column(DateTime(timezone=True), nullable=False)
+    updated_at = Column(DateTime(timezone=True), nullable=False)
+
+
 class FornecedoresSchema(Base):
     __tablename__ = "fornecedores"
 
