@@ -10,4 +10,9 @@ from .dto_fornecedor_on_protheus import (
     FornecedorOnProtheusResponse
 )
 
+from .dto_municipio import (
+    MunicipioCreate,
+    MunicipioResponse,
+)
+
 __all__: list[str] = []
