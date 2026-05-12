@@ -48,6 +48,7 @@ municipios = [
     ("Primavera de Rondônia", "PRIMAVERA DE RONDONIA"),
     ("Rio Crespo", "RIO CRESPO"),
     ("Rolim de Moura", "ROLIM DE MOURA"),
+    ("Ji-Paraná", "JI PARANA"),
 ]
 
 @pytest.mark.parametrize("raw_str, expected_normalized_str", municipios)
