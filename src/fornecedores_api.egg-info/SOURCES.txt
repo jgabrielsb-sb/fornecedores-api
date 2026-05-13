@@ -29,6 +29,7 @@ src/fornecedores_app/api/v1/models/dto_responses.py
 src/fornecedores_app/api/v1/repos/__init__.py
 src/fornecedores_app/api/v1/repos/fornecedor_on_protheus_repo.py
 src/fornecedores_app/api/v1/repos/fornecedor_repo.py
+src/fornecedores_app/api/v1/repos/fornecedor_to_update_repo.py
 src/fornecedores_app/api/v1/repos/health_repo.py
 src/fornecedores_app/api/v1/repos/municipio_repo.py
 src/fornecedores_app/api/v1/services/__init__.py
@@ -40,6 +41,7 @@ src/fornecedores_app/api/v1/services/municipio_service.py
 src/fornecedores_app/config/__init__.py
 src/fornecedores_app/config/config.py
 src/fornecedores_app/db/__init__.py
+src/fornecedores_app/db/mp12_session.py
 src/fornecedores_app/db/session.py
 src/fornecedores_app/db/schemas/__init__.py
 src/fornecedores_app/db/schemas/schemas.py

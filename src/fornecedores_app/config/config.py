@@ -38,6 +38,20 @@ class Settings(BaseSettings):
     API_VERSION: str = "0.0.1"
     CORS_ORIGINS: list[str] = ["*"]
 
+    MP12_DB_USER: str = "joao"
+    MP12_DB_PASSWORD: str = ""
+    MP12_DB_HOST: str = "localhost"
+    MP12_DB_PORT: int = 1433
+    MP12_DB_NAME: str = "MP12"
+
+    @property
+    def MP12_DB_URL(self) -> str:
+        return (
+            f"mssql+pyodbc://{self.MP12_DB_USER}:{self.MP12_DB_PASSWORD}"
+            f"@{self.MP12_DB_HOST}:{self.MP12_DB_PORT}/{self.MP12_DB_NAME}"
+            "?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes"
+        )
+
     @property
     def DB_URL(self) -> str:
         return f"{self.DB_DRIVER}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
