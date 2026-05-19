@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, text
+from sqlalchemy import JSON, Boolean, Column, DateTime, ForeignKey, Integer, String, text
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
@@ -48,5 +48,19 @@ class FornecedorOnProteusSchema(Base):
         server_default=text("0"),
     )
     protheus_last_synced_at = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), nullable=False)
+    updated_at = Column(DateTime(timezone=True), nullable=False)
+
+
+class LogSchema(Base):
+    __tablename__ = "logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    trace_id = Column(String, nullable=False)
+    execution_time = Column(DateTime(timezone=True), nullable=False)
+    message = Column(String, nullable=False)
+    process_name = Column(String, nullable=False)
+    status = Column(String, nullable=False)
+    metadata_json = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False)
     updated_at = Column(DateTime(timezone=True), nullable=False)
